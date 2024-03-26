@@ -8,6 +8,7 @@ Created on Tue Mar 26 14:38:28 2024
 
 import tkinter as tk
 from tkinter import *
+from tkinter import ttk
 
 
 LARGE_FONT= ("Verdana", 12)
@@ -45,40 +46,35 @@ def choose_charac(carac):
     global charac
     charac = carac    
     
+root = Tk()
 
-window = Tk()
-window.title("Overcurrent calculator")
-frame1 = tk.Frame()
-intro = Label(frame1, text="Single point calculator - IEC-60255 Overcurrent", foreground="black", background="white")
-intro.grid(row=0, column=0)
+root.title("Electrical Toolkit")
+frame1 = ttk.Frame(root)
+intro = Label(frame1, text="Single point calculator - IEC-60255 Overcurrent", foreground="black")
 line1 = Label(frame1, text="Choose a characteristic curve")
-line1.grid(row=1, column=0)
 options = ["Normally Inverse", "Very Inverse", "Extremely Inverse", "Long Time"]
 value_menu = StringVar(value='---')
 menu = OptionMenu(frame1, value_menu, *options).grid(row=2, column=0)
-
-line2 = tk.Label(frame1, text="Please enter a time multiplier (k): \n").grid(row=3, column=0)
-TMS_input = tk.Entry(frame1)
-TMS_input.grid(row=4, column=0)
-
-line3 = tk.Label(frame1, text="Please enter a current multiplier (I/In): \n").grid(row=5, column=0)
-I_input = tk.Entry(frame1)
-I_input.grid(row=6, column=0)
-
-
-line4 = tk.Label(frame1, text="The operation time is (s):").grid(row=10, column=0)
-
+line2 = ttk.Label(frame1, text="Please enter a time multiplier (k): \n").grid(row=3, column=0)
+TMS_input = ttk.Entry(frame1)
+line3 = ttk.Label(frame1, text="Please enter a current multiplier (I/In): \n").grid(row=5, column=0)
+I_input = ttk.Entry(frame1)
+line4 = ttk.Label(frame1, text="The operation time is (s):").grid(row=10, column=0)
 result = Label(frame1, text="")
-result.grid(row=11, column=0)
-
 button = Button(frame1, text = "Calculate", command = lambda: calc()).grid(row=9, column=0)
 
+intro.grid(row=0, column=0)
+line1.grid(row=1, column=0)
+TMS_input.grid(row=4, column=0)
+I_input.grid(row=6, column=0)
+result.grid(row=11, column=0)
 
-signature = tk.Label(frame1, text="Developed by: Matheus Ruan Zimmermann - v1.0")
+
+signature = ttk.Label(frame1, text="Developed by: Matheus Ruan Zimmermann - v1.0")
 signature.grid(row=15, column=0, sticky= "sw")
 
 frame1.grid()
-window.mainloop()
+frame1.mainloop()
 
 
     
