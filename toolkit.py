@@ -47,21 +47,28 @@ def choose_charac(carac):
     charac = carac    
     
 root = Tk()
-
 root.title("Electrical Toolkit")
-frame1 = ttk.Frame(root)
-intro = Label(frame1, text="Single point calculator - IEC-60255 Overcurrent", foreground="black")
-line1 = Label(frame1, text="Choose a characteristic curve")
+
+tabControl = ttk.Notebook(root)
+tab1 = ttk.Frame(tabControl)
+tab2 = ttk.Frame(tabControl)
+
+tabControl.add(tab1, text="Overcurr. Calc.")
+tabControl.add(tab2, text="S -> P/Q")
+
+#First tab
+intro = Label(tab1, text="Single point calculator - IEC-60255 Overcurrent", foreground="black")
+line1 = Label(tab1, text="Choose a characteristic curve")
 options = ["Normally Inverse", "Very Inverse", "Extremely Inverse", "Long Time"]
 value_menu = StringVar(value='---')
-menu = OptionMenu(frame1, value_menu, *options).grid(row=2, column=0)
-line2 = ttk.Label(frame1, text="Please enter a time multiplier (k): \n").grid(row=3, column=0)
-TMS_input = ttk.Entry(frame1)
-line3 = ttk.Label(frame1, text="Please enter a current multiplier (I/In): \n").grid(row=5, column=0)
-I_input = ttk.Entry(frame1)
-line4 = ttk.Label(frame1, text="The operation time is (s):").grid(row=10, column=0)
-result = Label(frame1, text="")
-button = Button(frame1, text = "Calculate", command = lambda: calc()).grid(row=9, column=0)
+menu = OptionMenu(tab1, value_menu, *options).grid(row=2, column=0)
+line2 = ttk.Label(tab1, text="Please enter a time multiplier (k): \n").grid(row=3, column=0)
+TMS_input = ttk.Entry(tab1)
+line3 = ttk.Label(tab1, text="Please enter a current multiplier (I/In): \n").grid(row=5, column=0)
+I_input = ttk.Entry(tab1)
+line4 = ttk.Label(tab1, text="The operation time is (s):").grid(row=10, column=0)
+result = Label(tab1, text="")
+button = Button(tab1, text = "Calculate", command = lambda: calc()).grid(row=9, column=0)
 
 intro.grid(row=0, column=0)
 line1.grid(row=1, column=0)
@@ -69,12 +76,13 @@ TMS_input.grid(row=4, column=0)
 I_input.grid(row=6, column=0)
 result.grid(row=11, column=0)
 
+signature = ttk.Label(tabControl, text="Developed by: Matheus Ruan Zimmermann - v1.0")
+#signature.grid(row=0, column=0, sticky= "sw")
+signature.pack(fill=X, side=BOTTOM)
 
-signature = ttk.Label(frame1, text="Developed by: Matheus Ruan Zimmermann - v1.0")
-signature.grid(row=15, column=0, sticky= "sw")
+tabControl.pack(expand=1, fill=BOTH, side=TOP)
 
-frame1.grid()
-frame1.mainloop()
+root.mainloop()
 
 
     
