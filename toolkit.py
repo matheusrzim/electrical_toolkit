@@ -23,9 +23,13 @@ I_value = 1
 TMS_value = 1
 charac = "null"
 S_value = 1
-S_angle = 1
+S_angle = 0
 P_value = 1
 Q_value = 1
+V_value = 1
+V_angle = 0
+I_value = 1
+I_angle = 0
 
 #Defining overcurrent calculator
 def calc_oc(TMS_input,I_input):
@@ -66,6 +70,11 @@ def calc_SPQ(S_value,S_angle):
     Q.config(text=Q_value)
     return
 
+#Defining voltage and current to apparent, active and reactive power convertion
+def calc_VIS(V_value,V_angle,I_value,I_angle):
+    
+    return
+
 #Defining window and tabs
 root = Tk()
 root.title("Electrical Toolkit")
@@ -74,12 +83,14 @@ root.option_add('*tearOff', FALSE)
 tabControl = ttk.Notebook(root)
 tab1 = ttk.Frame(tabControl)
 tab2 = ttk.Frame(tabControl)
+tab3 = ttk.Frame(tabControl)
 
 tabControl.add(tab1, text="Overcurr. Calc.")
 tabControl.add(tab2, text="S -> P,Q")
+tabControl.add(tab3, text="V,I -> S,P,Q")
 
 #--------------First tab--------------
-intro1 = ttk.Label(tab1, text="Single point calculator - IEC-60255 Overcurrent\n", foreground="black", font="bold")
+intro1 = ttk.Label(tab1, text="\nSingle point calculator - IEC-60255 Overcurrent\n", foreground="black", font="bold")
 line11 = ttk.Label(tab1, text="Choose a characteristic curve")
 options = ["---","Normally Inverse", "Very Inverse", "Extremely Inverse", "Long Time"]
 value_menu1 = tk.StringVar(value='---')
@@ -105,7 +116,7 @@ line14.grid(row=10, column=0, columnspan=2)
 result1.grid(row=11, column=0, columnspan=2)
 
 #--------------Second tab--------------
-intro2 = ttk.Label(tab2, text="Apparent, Active and Reactive Power convertor\n", foreground="black",font="bold")
+intro2 = ttk.Label(tab2, text="\nApparent, Active and Reactive Power convertor\n", foreground="black",font="bold")
 line21 = ttk.Label(tab2, text="Please enter the magnitude for S [VA]: ")
 S_value = ttk.Entry(tab2)
 line22 = ttk.Label(tab2, text="Please enter the power factor: ")
@@ -128,6 +139,45 @@ P.grid(row=9, column=0)
 line24.grid(row=8, column=1)
 Q.grid(row=9, column=1)
 
+#--------------Third tab--------------
+intro3 = ttk.Label(tab3, text="\nVoltage and Current to Apparent, Active and Reactive Power convertor\n", foreground="black",font="bold")
+line31 = ttk.Label(tab3, text="Please enter the magnitude for V [V]: ")
+V_value = ttk.Entry(tab3)
+line32 = ttk.Label(tab3, text="Please enter the angle for V [degrees]: ")
+V_angle = ttk.Entry(tab3)
+line33 = ttk.Label(tab3, text="Please enter the magnitude for I [A]: ")
+I_value = ttk.Entry(tab3)
+line34 = ttk.Label(tab3, text="Please enter the angle for I [degrees]: ")
+I_angle = ttk.Entry(tab3)
+line35 = ttk.Label(tab3, text="The Apparent Power (S) is [VA]:")
+line36 = ttk.Label(tab3, text=" º")
+line37 = ttk.Label(tab3, text="\nThe Active Power (P) is [W]:")
+line38 = ttk.Label(tab3, text="\nThe Reactive Power (Q) is [VAr]:")
+S1 = ttk.Label(tab3, text=" ")
+SA1 = ttk.Label(tab3, text=" ")
+P1 = ttk.Label(tab3, text=" ")
+Q1 = ttk.Label(tab3, text=" ")
+button3 = ttk.Button(tab3, text = "Calculate", command = lambda: calc_VIS(V_value,V_angle,I_value,I_angle))
+
+#Position management
+intro2.grid(row=0, column=0, columnspan=2)
+line31.grid(row=2, column=0, sticky=W)
+V_value.grid(row=2, column=1, padx=0)
+line32.grid(row=4, column=0, sticky=W)
+V_angle.grid(row=4, column=1, padx=0)
+line33.grid(row=6, column=0, sticky=W)
+I_value.grid(row=6, column=1, padx=0)
+line34.grid(row=8, column=0, sticky=W)
+I_angle.grid(row=8, column=1, padx=0)
+line35.grid(row=10, column=0)
+S1.grid(row=10, column=1)
+SA1.grid(row=10, column=2, sticky=W)
+line36.grid(row=10, column=3)
+line37.grid(row=12, column=0)
+P1.grid(row=12, column=1)
+line38.grid(row=14, column=1)
+Q1.grid(row=14, column=1)
+button3.grid(row=16, column=0, columnspan=2)
 
 #signature = ttk.Label(tabControl, text="Developed by: Matheus Ruan Zimmermann - v1.0")
 #signature.grid(row=0, column=0, sticky= "sw")
