@@ -1,2 +1,3 @@
 # electrical_toolkit
- Toolkit
+ 
+ Toolkit cointaining usual calculations used in electrical engineering line of work. Still in development.
