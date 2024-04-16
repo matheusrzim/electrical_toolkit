@@ -30,6 +30,10 @@ V_value = 1
 V_angle = 0
 I_value = 1
 I_angle = 0
+S1_value = 1
+SA1_angle = 0
+P1_value = 1
+Q1_value = 1
 
 #Defining overcurrent calculator
 def calc_oc(TMS_input,I_input):
@@ -72,7 +76,19 @@ def calc_SPQ(S_value,S_angle):
 
 #Defining voltage and current to apparent, active and reactive power convertion
 def calc_VIS(V_value,V_angle,I_value,I_angle):
-    
+    V_value = float(V_value.get())
+    V_angle = float(V_angle.get())
+    I_value = float(I_value.get())
+    I_angle = float(I_angle.get())
+    S1_value = V_value*I_value
+    SA1_angle = V_angle+(-I_angle)
+    S1.config(text=S1_value)
+    SA1.config(text=(SA1_angle,'º'))
+    SA1_angle = SA1_angle*(math.pi/180)
+    P1_value = S1_value*math.cos(SA1_angle)
+    Q1_value = S1_value*math.sin(SA1_angle)
+    P1.config(text=P1_value)
+    Q1.config(text=Q1_value)
     return
 
 #Defining window and tabs
@@ -140,7 +156,7 @@ line24.grid(row=8, column=1)
 Q.grid(row=9, column=1)
 
 #--------------Third tab--------------
-intro3 = ttk.Label(tab3, text="\nVoltage and Current to Apparent, Active and Reactive Power convertor\n", foreground="black",font="bold")
+intro3 = ttk.Label(tab3, text="\nVoltage and Current to Power convertor\n", foreground="black",font="bold")
 line31 = ttk.Label(tab3, text="Please enter the magnitude for V [V]: ")
 V_value = ttk.Entry(tab3)
 line32 = ttk.Label(tab3, text="Please enter the angle for V [degrees]: ")
@@ -150,9 +166,8 @@ I_value = ttk.Entry(tab3)
 line34 = ttk.Label(tab3, text="Please enter the angle for I [degrees]: ")
 I_angle = ttk.Entry(tab3)
 line35 = ttk.Label(tab3, text="The Apparent Power (S) is [VA]:")
-line36 = ttk.Label(tab3, text=" º")
-line37 = ttk.Label(tab3, text="\nThe Active Power (P) is [W]:")
-line38 = ttk.Label(tab3, text="\nThe Reactive Power (Q) is [VAr]:")
+line36 = ttk.Label(tab3, text="The Active Power (P) is [W]:")
+line37 = ttk.Label(tab3, text="The Reactive Power (Q) is [VAr]:")
 S1 = ttk.Label(tab3, text=" ")
 SA1 = ttk.Label(tab3, text=" ")
 P1 = ttk.Label(tab3, text=" ")
@@ -169,14 +184,13 @@ line33.grid(row=6, column=0, sticky=W)
 I_value.grid(row=6, column=1, padx=0)
 line34.grid(row=8, column=0, sticky=W)
 I_angle.grid(row=8, column=1, padx=0)
-line35.grid(row=10, column=0)
-S1.grid(row=10, column=1)
+line35.grid(row=10, column=0, sticky=W)
+S1.grid(row=10, column=1, sticky=W)
 SA1.grid(row=10, column=2, sticky=W)
-line36.grid(row=10, column=3)
-line37.grid(row=12, column=0)
-P1.grid(row=12, column=1)
-line38.grid(row=14, column=0)
-Q1.grid(row=14, column=1)
+line36.grid(row=12, column=0, sticky=W)
+P1.grid(row=12, column=1, sticky=W)
+line37.grid(row=14, column=0, sticky=W)
+Q1.grid(row=14, column=1, sticky=W)
 button3.grid(row=9, column=0, columnspan=2)
 
 #signature = ttk.Label(tabControl, text="Developed by: Matheus Ruan Zimmermann - v1.0")
