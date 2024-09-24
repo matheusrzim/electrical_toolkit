@@ -11,7 +11,7 @@ from tkinter import *
 from tkinter import ttk
 from PIL import Image
 import math
-
+import plotly_express as px
 
 LARGE_FONT= ("Verdana", 12)
 NORM_FONT= ("Arial", 10)
